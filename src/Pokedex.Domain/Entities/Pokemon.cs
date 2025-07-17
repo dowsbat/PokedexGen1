@@ -13,11 +13,12 @@ namespace Pokedex.Domain.Entities
         public double Altura { get; set; }
         public double Peso { get; set; }
         public bool Genero { get; set; }
-        public List<Debilidad> Debilidades { get; set; } = [];
-        public List<Habilidad> Habilidades { get; set; } = [];
+        public string ImagenURL { get; set; }
+        public ICollection<Debilidad> Debilidades { get; set; } = [];
+        public ICollection<Habilidad> Habilidades { get; set; } = [];
         public int EstadisticasId { get; set; }
         public required Estadistica Estadisticas { get; set; }
-        public List<Tipo> Tipos { get; set; } = [];
+        public ICollection<Tipo> Tipos { get; set; } = [];
         public int EspeciesId { get; set; }
         public required Especie Especies { get; set; }
 
