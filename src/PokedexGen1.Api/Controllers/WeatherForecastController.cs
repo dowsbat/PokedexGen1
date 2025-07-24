@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Pokedex.Application.Servicios;
 
 namespace PokedexGen1.Api.Controllers;
 
@@ -12,10 +13,12 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IPokemonApiServicios _pokemonServices;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IPokemonApiServicios pokemonServices)
     {
         _logger = logger;
+        _pokemonServices = pokemonServices;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
@@ -29,4 +32,13 @@ public class WeatherForecastController : ControllerBase
         })
         .ToArray();
     }
+
+    [HttpGet("prueba")]
+    public async Task<IActionResult> Prueba()
+    {
+        var service = await _pokemonServices.GetFirstGenPokemon();
+        return Ok(service);
+
+    }
+
 }

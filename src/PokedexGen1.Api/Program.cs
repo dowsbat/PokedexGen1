@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Pokedex.Application.Servicios;
 using Pokedex.DataAccess.Data;
+using Pokedex.Infrastructure.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConn")));
+builder.Services.AddTransient<IPokemonApiServicios, PokemonApiServicios>();
+builder.Services.AddHttpClient("PokemonApi",client => { client.BaseAddress = new Uri("https://pokeapi.co/api/v2/"); });// Register the HttpClient with a base address
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
